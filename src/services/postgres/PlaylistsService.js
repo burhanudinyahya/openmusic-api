@@ -49,7 +49,7 @@ class PlaylistsService {
       values: [id, playlistId, songId],
     };
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Song failed to add in playlist');
     }
     return result.rows[0].id;
@@ -64,7 +64,7 @@ class PlaylistsService {
       values: [id, playlistId, songId, credentialId, action],
     };
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Activities failed to log');
     }
     return result.rows[0].id;
@@ -100,7 +100,7 @@ class PlaylistsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('Song failed to delete from playlist. Id not found');
     }
   }
@@ -113,7 +113,7 @@ class PlaylistsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('Playlist failed to delete. Id not found');
     }
   }
@@ -137,7 +137,7 @@ class PlaylistsService {
       values: [id],
     };
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('Playlists not found');
     }
     const playlist = result.rows[0];

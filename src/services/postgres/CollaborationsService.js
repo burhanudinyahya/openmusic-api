@@ -16,7 +16,7 @@ class CollaborationsService {
       values: [id, playlistId, userId],
     };
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Collaboration failed to add');
     }
     return result.rows[0].id;
@@ -28,7 +28,7 @@ class CollaborationsService {
       values: [playlistId, userId],
     };
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Collaboration failed to delete');
     }
   }
@@ -39,7 +39,7 @@ class CollaborationsService {
       values: [playlistId, userId],
     };
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Collaboration failed to verify');
     }
   }
