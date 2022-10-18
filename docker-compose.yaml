@@ -14,9 +14,24 @@ services:
       - 5432:5432
     volumes:
       - ./.postgres-data:/var/lib/postgresql/data
-    networks:
-      - openmusic_network
 
-networks:
-  openmusic_network:
-    name: openmusic_network
+  rabbitmq:
+    container_name: rabbitmq-openmusic
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./.rabbitmq-data:/var/lib/rabbitmq
+        - ./.rabbitmq-log/:/var/log/rabbitmq
+
+  redis:
+    container_name: redis-openmusic
+    image: redis:7.0.5-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./.redis-data:/data
