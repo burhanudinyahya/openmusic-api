@@ -13,15 +13,13 @@ class PlaylistsHandler {
       name, owner: credentialId,
     });
 
-    const response = h.response({
+    return h.response({
       status: 'success',
       message: 'Playlist successfully added',
       data: {
         playlistId,
       },
-    });
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   async getPlaylistsHandler(request) {

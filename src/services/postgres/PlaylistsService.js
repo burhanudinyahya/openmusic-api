@@ -37,8 +37,8 @@ class PlaylistsService {
       WHERE playlists.owner = $1 OR collaborations.user_id = $1`,
       values: [owner],
     };
-    const result = await this._pool.query(query);
-    return result.rows;
+    const { rows } = await this._pool.query(query);
+    return rows;
   }
 
   async addSongToPlaylist({ playlistId, songId }) {
@@ -133,7 +133,7 @@ class PlaylistsService {
 
   async verifyPlaylistOwner(id, owner) {
     const query = {
-      text: 'SELECT * FROM playlists WHERE id = $1',
+      text: 'SELECT owner FROM playlists WHERE id = $1',
       values: [id],
     };
     const result = await this._pool.query(query);
