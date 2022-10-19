@@ -22,8 +22,8 @@ class PlaylistsHandler {
     }).code(201);
   }
 
-  async getPlaylistsHandler(request) {
-    const { id: credentialId } = request.auth.credentials;
+  async getPlaylistsHandler({ auth }) {
+    const { id: credentialId } = auth.credentials;
     const playlists = await this._service.getPlaylists(credentialId);
     return {
       status: 'success',
@@ -47,12 +47,10 @@ class PlaylistsHandler {
       playlistId, songId, credentialId, action: 'add',
     });
 
-    const response = h.response({
+    return h.response({
       status: 'success',
       message: 'The song has been successfully added to the playlist',
-    });
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   async getSongsInPlaylistHandler({ params, auth }) {

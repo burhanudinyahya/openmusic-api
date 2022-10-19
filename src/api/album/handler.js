@@ -5,19 +5,17 @@ class AlbumHandler {
     this._validator = validator;
   }
 
-  async postAlbumHandler(request, h) {
-    this._validator.validateAlbumPayload(request.payload);
-    const albumId = await this._service.addAlbum(request.payload);
+  async postAlbumHandler({ payload }, h) {
+    this._validator.validateAlbumPayload(payload);
+    const albumId = await this._service.addAlbum(payload);
 
-    const response = h.response({
+    return h.response({
       status: 'success',
       message: 'Album added successfully',
       data: {
         albumId,
       },
-    });
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   async postUploadAlbumCoverHandler({ params, payload }, h) {
@@ -45,9 +43,8 @@ class AlbumHandler {
     };
   }
 
-  async getAlbumByIdHandler(request) {
-    const { id } = request.params;
-    const album = await this._service.getAlbumById(id);
+  async getAlbumByIdHandler({ params }) {
+    const album = await this._service.getAlbumById(params.id);
     return {
       status: 'success',
       data: {
@@ -56,11 +53,9 @@ class AlbumHandler {
     };
   }
 
-  async putAlbumByIdHandler(request) {
-    this._validator.validateAlbumPayload(request.payload);
-    const { id } = request.params;
-
-    await this._service.editAlbumById(id, request.payload);
+  async putAlbumByIdHandler({ params, payload }) {
+    this._validator.validateAlbumPayload(payload);
+    await this._service.editAlbumById(params.id, payload);
 
     return {
       status: 'success',
@@ -68,9 +63,8 @@ class AlbumHandler {
     };
   }
 
-  async deleteAlbumByIdHandler(request) {
-    const { id } = request.params;
-    await this._service.deleteAlbumById(id);
+  async deleteAlbumByIdHandler({ params }) {
+    await this._service.deleteAlbumById(params.id);
 
     return {
       status: 'success',

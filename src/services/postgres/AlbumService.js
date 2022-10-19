@@ -30,8 +30,8 @@ class AlbumService {
   }
 
   async getAlbums() {
-    const result = await this._pool.query('SELECT id, name, year FROM album');
-    return result.rows;
+    const { rows } = await this._pool.query('SELECT id, name, year FROM album');
+    return rows;
   }
 
   async getAlbumById(id) {

@@ -13,12 +13,13 @@ class ExportsHandler {
 
     await this._playlistsService.verifyPlaylistOwner(playlistId, userId);
 
-    const message = JSON.stringify({
-      playlistId,
-      targetEmail,
-    });
-
-    await this._exportsService.sendMessage('export:playlists', message);
+    await this._exportsService.sendMessage(
+      'export:playlists',
+      JSON.stringify({
+        playlistId,
+        targetEmail,
+      }),
+    );
 
     return h.response({
       status: 'success',
