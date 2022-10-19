@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+const config = require('./config');
+
 const mapSongDBToModel = ({
   id,
   title,
@@ -26,7 +28,7 @@ const mapAlbumDBTpModel = ({
   id,
   name,
   year,
-  coverUrl: cover ? `https://${process.env.AWS_BUCKET_URL}/${cover}` : null,
+  coverUrl: cover ? `https://${config.s3.bucketUrl}/${cover}` : null,
 });
 
 module.exports = {

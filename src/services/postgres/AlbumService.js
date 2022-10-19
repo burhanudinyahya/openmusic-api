@@ -40,11 +40,12 @@ class AlbumService {
       values: [id],
     };
     const result = await this._pool.query(query);
-    const mappedAlbum = result.rows.map(mapAlbumDBTpModel)[0];
 
     if (!result.rowCount) {
       throw new NotFoundError('Album not found!');
     }
+
+    const mappedAlbum = result.rows.map(mapAlbumDBTpModel)[0];
 
     const querySongs = {
       text: 'SELECT id, title, performer FROM songs WHERE album_id = $1',
