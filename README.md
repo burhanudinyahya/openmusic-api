@@ -2,6 +2,7 @@
 
 - docker-compose up -d
 - cp .env.example .env
+- change `.env` value with yours
 - npm install
 - npm run migrate up
 - npm run start-dev
